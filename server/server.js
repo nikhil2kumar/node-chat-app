@@ -18,15 +18,10 @@ io.on('connection', (socket) => {
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat group'));
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined'));
 
-    socket.on('createMessage', (msg) => {
-        console.log('New sg created by client', msg);
-
+    socket.on('createMessage', (msg, callback) => {
+        console.log('New msg created by client', msg);
         io.emit('newMessage', generateMessage(msg.from, msg.text));
-        // socket.broadcast.emit('newMessage',{
-        //     from: msg.from,
-        //     text: msg.text,
-        //     createdAt: new Date().getTime
-        // });
+        callback('This is from server');
     });
 
     socket.on('disconnect', () => {
