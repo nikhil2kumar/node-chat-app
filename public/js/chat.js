@@ -33,6 +33,17 @@ socket.on('connect', function() {
             console.log('No error');
         }
     })
+});
+
+socket.on('updateUserList', function(userList){
+    console.log(userList);
+    var ol = $('<ol></ol>');
+
+    userList.forEach(user => {
+        ol.append($('<li></li>').text(user));
+    });
+
+    $('#users').html(ol);
 })
 
 socket.on('newMessage', function (msg) {
